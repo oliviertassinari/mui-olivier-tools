@@ -1,0 +1,14 @@
+previewsExpireAfterDays: 3
+
+services:
+  - type: web
+    name: mui-olivier-tools
+    env: node
+    rootDir: ./
+    buildCommand: yarn && yarn build
+    startCommand: yarn start
+    pullRequestPreviewsEnabled: true
+    plan: free
+    envVars:
+      - fromGroup: npm
+      - fromGroup: basic-auth

@@ -2,7 +2,7 @@ apiVersion: v1
 kind: page
 spec:
   id: VACs-z8
-  title: Default page
+  title: npmUsers
   content:
     - component: PageRow
       name: pageRow4

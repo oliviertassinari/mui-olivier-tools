@@ -4,3 +4,13 @@ spec:
   id: gIr39w1
   title: githubUsers
   display: shell
+  content:
+    - component: PageRow
+      name: pageRow
+      children:
+        - component: Text
+          name: text
+          props:
+            mode: markdown
+            value: Once you are bored of this, fix implement it like npm with
+              https://docs.github.com/en/rest/orgs/members?apiVersion=2022-11-28#create-an-organization-invitation

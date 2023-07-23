@@ -11,7 +11,7 @@
     "node": "^16.17.0"
   },
   "dependencies": {
-    "@mui/toolpad": "0.1.17",
+    "@mui/toolpad": "0.1.19",
     "libnpmorg": "^5.0.4"
   }
 }

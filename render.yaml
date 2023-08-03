@@ -12,3 +12,5 @@ services:
     envVars:
       - fromGroup: npm
       - fromGroup: basic-auth
+      - key: NODE_VERSION
+        value: 18

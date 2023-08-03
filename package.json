@@ -7,9 +7,6 @@
     "build": "toolpad build",
     "start": "toolpad start"
   },
-  "engines": {
-    "node": "^16.17.0"
-  },
   "dependencies": {
     "@mui/toolpad": "0.1.17",
     "libnpmorg": "^5.0.4"

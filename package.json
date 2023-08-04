@@ -5,10 +5,11 @@
   "scripts": {
     "dev": "toolpad dev",
     "build": "toolpad build",
-    "start": "NODE_OPTIONS='--max-old-space-size=396' toolpad start"
+    "start": "NODE_OPTIONS='--max-old-space-size=396' node fake-server.js"
   },
   "dependencies": {
     "@mui/toolpad": "^0.1.17",
+    "express": "^4.18.2",
     "libnpmorg": "^5.0.4"
   }
 }

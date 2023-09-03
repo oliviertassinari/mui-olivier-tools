@@ -13,16 +13,6 @@ spec:
             value: npm users
             variant: h4
     - component: PageRow
-      name: pageRow6
-      children:
-        - component: Text
-          name: text3
-          props:
-            mode: markdown
-            value: >
-              Token to renew in
-              https://www.npmjs.com/settings/oliviertassinari/tokens/
-    - component: PageRow
       name: pageRow2
       children:
         - component: DataGrid
@@ -62,25 +52,23 @@ spec:
         - component: Button
           name: button
           props:
+            fullWidth: false
             loading:
               $$jsExpression: |
                 inviteUser.isLoading
             content: Invite
             onClick:
-              $$jsExpressionAction: |-
-                inviteUser.call({
-                  slug: slug.value
-                })
+              $$jsExpressionAction: inviteUser.call()
             disabled:
               $$jsExpression: |
                 slug.value === ""
-            fullWidth: false
     - component: PageRow
       name: pageRow5
       children:
         - component: Text
           name: text2
           props:
+            loading: false
             mode: markdown
             value:
               $$jsExpression: |
@@ -90,12 +78,29 @@ spec:
                 ${JSON.stringify(inviteUser.data, null, 2)}
                 \`\`\`
                 `
-            loading: false
+    - component: PageRow
+      name: pageRow6
+      children:
+        - component: Text
+          name: text4
+          props:
+            variant: h4
+            value: process.env.NPM_TOKEN
+    - component: PageRow
+      name: pageRow7
+      children:
+        - component: Text
+          name: text3
+          props:
+            mode: markdown
+            value: >
+              Token to renew in
+              https://www.npmjs.com/settings/oliviertassinari/tokens/
   queries:
     - name: inviteUser
       mode: mutation
       query:
-        function: npm.ts#inviteUser
+        function: npmInviteUser
         kind: local
       parameters:
         - name: slug
@@ -104,5 +109,5 @@ spec:
               slug.value
     - name: listUser
       query:
-        function: npm.ts#listUsers
+        function: npmListUsers
         kind: local

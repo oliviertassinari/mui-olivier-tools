@@ -11,7 +11,7 @@ spec:
         - component: Text
           name: text1
           props:
-            value: npm users
+            value: GitHub users
             variant: h4
     - component: PageRow
       name: pageRow6
@@ -34,11 +34,13 @@ spec:
                 listUser.data
             height: 310
             columns:
-              - field: name
+              - field: login
                 type: string
-                width: 156
-              - field: role
+                width: 177
+              - field: type
                 type: string
+              - field: site_admin
+                type: boolean
     - component: PageRow
       name: pageRow3
       children:
@@ -51,10 +53,10 @@ spec:
       name: pageRow
       children:
         - component: TextField
-          name: slug
+          name: username
           props:
             fullWidth: false
-            label: new user npm slug
+            label: new user GitHub username
             sx:
               width: 300
     - component: PageRow
@@ -68,13 +70,10 @@ spec:
                 inviteUser.isLoading
             content: Invite
             onClick:
-              $$jsExpressionAction: |-
-                inviteUser.call({
-                  slug: slug.value
-                })
+              $$jsExpressionAction: inviteUser.call()
             disabled:
               $$jsExpression: |
-                slug.value === ""
+                username.value === ""
             fullWidth: false
     - component: PageRow
       name: pageRow5
@@ -92,3 +91,18 @@ spec:
                 \`\`\`
                 `
             loading: false
+  queries:
+    - name: inviteUser
+      mode: mutation
+      query:
+        function: githubInviteUser
+        kind: local
+      parameters:
+        - name: username
+          value:
+            $$jsExpression: |
+              username.value
+    - name: listUser
+      query:
+        function: githubListUsers
+        kind: local

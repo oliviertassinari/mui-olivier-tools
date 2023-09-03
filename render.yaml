@@ -11,6 +11,7 @@ services:
     plan: free
     envVars:
       - fromGroup: npm
+      - fromGroup: github
       - fromGroup: basic-auth
       - key: NODE_VERSION
         value: 18

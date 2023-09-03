@@ -14,16 +14,6 @@ spec:
             value: GitHub users
             variant: h4
     - component: PageRow
-      name: pageRow6
-      children:
-        - component: Text
-          name: text3
-          props:
-            mode: markdown
-            value: >
-              Token to renew in
-              https://www.npmjs.com/settings/oliviertassinari/tokens/
-    - component: PageRow
       name: pageRow2
       children:
         - component: DataGrid
@@ -32,7 +22,7 @@ spec:
             rows:
               $$jsExpression: |
                 listUser.data
-            height: 310
+            height: 324
             columns:
               - field: login
                 type: string
@@ -65,6 +55,7 @@ spec:
         - component: Button
           name: button
           props:
+            fullWidth: false
             loading:
               $$jsExpression: |
                 inviteUser.isLoading
@@ -74,13 +65,13 @@ spec:
             disabled:
               $$jsExpression: |
                 username.value === ""
-            fullWidth: false
     - component: PageRow
       name: pageRow5
       children:
         - component: Text
           name: text2
           props:
+            loading: false
             mode: markdown
             value:
               $$jsExpression: |
@@ -90,7 +81,6 @@ spec:
                 ${JSON.stringify(inviteUser.data, null, 2)}
                 \`\`\`
                 `
-            loading: false
   queries:
     - name: inviteUser
       mode: mutation

@@ -3,13 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "preinstall": "npx only-allow pnpm",
     "dev": "toolpad dev",
     "build": "toolpad build",
     "start": "toolpad start"
   },
   "dependencies": {
-    "@mui/toolpad": "^0.1.17",
-    "@octokit/rest": "^20.0.1",
+    "@mui/toolpad": "^0.1.48",
+    "@octokit/rest": "^20.0.2",
     "libnpmorg": "^5.0.4"
   }
 }

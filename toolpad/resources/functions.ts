@@ -1,10 +1,7 @@
-import org from 'libnpmorg';
+import libnpmorg from 'libnpmorg';
 import { Octokit } from '@octokit/rest';
-import { createFunction } from '@mui/toolpad/server';
 
-export const githubListUsers = createFunction(
-  async () => {
-
+export async function githubListUsers() {
   if (!process.env.GITHUB_TOKEN) {
     throw new Error(`Env variable GITHUB_TOKEN not configured`);
   }
@@ -26,11 +23,9 @@ export const githubListUsers = createFunction(
     login: user.login,
     type: user.type,
   }));
-});
+}
 
-export const githubInviteUser = createFunction(
-  async ({ parameters }) => {
-
+export async function githubInviteUser(username: string) {
   if (!process.env.GITHUB_TOKEN) {
     throw new Error(`Env variable GITHUB_TOKEN not configured`);
   }
@@ -41,7 +36,7 @@ export const githubInviteUser = createFunction(
 
   try {
     const user = await octokit.request('GET /users/{username}', {
-      username: parameters.username,
+      username,
       headers: {
         'X-GitHub-Api-Version': '2022-11-28'
       }
@@ -60,55 +55,37 @@ export const githubInviteUser = createFunction(
   } catch (err) {
     return err.response.data;
   }
-}, {
-  parameters: {
-    username: {
-      type: 'string',
-    },
-  },
-},
-);
+};
 
-export const npmListUsers = createFunction(
-  async () => {
-    if (!process.env.NPM_TOKEN) {
-      throw new Error(`Env variable NPM_TOKEN not configured`);
-    }
+export async function npmListUsers(org: string) {
+  if (!process.env.NPM_TOKEN) {
+    throw new Error(`Env variable NPM_TOKEN not configured`);
+  }
 
-    const users = await org.ls('mui', {
+  const users = await libnpmorg.ls(org, {
+    '//registry.npmjs.org/:_authToken': process.env.NPM_TOKEN,
+  })
+
+  return Object.entries(users).map(user => ({
+    name: user[0],
+    role: user[1],
+  }));
+};
+
+export async function npmInviteUser(org: string, slug: string) {
+  if (!process.env.NPM_TOKEN) {
+    throw new Error(`Env variable NPM_TOKEN not configured`);
+  }
+
+  try {
+    const membershipDetail = await libnpmorg.set(org, slug, 'developer', {
       '//registry.npmjs.org/:_authToken': process.env.NPM_TOKEN,
     })
 
-    return Object.entries(users).map(user => ({
-      name: user[0],
-      role: user[1],
-    }));
-  },
-);
-
-export const npmInviteUser = createFunction(
-  async ({ parameters }) => {
-    if (!process.env.NPM_TOKEN) {
-      throw new Error(`Env variable NPM_TOKEN not configured`);
+    return membershipDetail;
+  } catch (err) {
+    return {
+      error: err.message,
     }
-
-    try {
-      const membershipDetail = await org.set('mui', parameters.slug, 'developer', {
-        '//registry.npmjs.org/:_authToken': process.env.NPM_TOKEN,
-      })
-
-      return membershipDetail;
-    } catch (err) {
-      return {
-        error: err.message,
-      }
-    }
-  },
-  {
-    parameters: {
-      slug: {
-        type: 'string',
-      },
-    },
-  },
-);
+  }
+}

@@ -124,7 +124,7 @@ spec:
 
           - Packages and scopes: no permissions
 
-          - Organizations: read and right to @mui, @toolpad
+          - Organizations: read and right to @mui, @toolpad, @pigment-css
 
 
           Set the expiration date to be 4 years.

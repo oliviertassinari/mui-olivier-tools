@@ -37,7 +37,7 @@ spec:
               - value: toolpad
                 label: "@toolpad"
               - value: pigment-css
-                label: "@pigment-css"                
+                label: "@pigment-css"
             defaultValue: mui
             name: ""
     - component: DataGrid

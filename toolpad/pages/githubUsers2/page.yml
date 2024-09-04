@@ -3,15 +3,17 @@
 apiVersion: v1
 kind: page
 spec:
+  displayName: GitHub /mui-org/ users
+  alias:
+    - gIr39w1
   title: GitHub users
-  display: shell
   content:
     - component: Text
       name: text1
       layout:
         columnSize: 1
       props:
-        value: GitHub /mui/ users
+        value: GitHub /mui-org/ users
         variant: h3
     - component: DataGrid
       name: dataGrid
@@ -87,10 +89,13 @@ spec:
           value:
             $$jsExpression: |
               username.value
+        - name: org
+          value: mui-org
     - name: listUser
       query:
         function: githubListUsers
         kind: local
-  alias:
-    - gIr39w1
-  displayName: GitHub /mui/ users
+      parameters:
+        - name: org
+          value: mui-org
+  display: shell

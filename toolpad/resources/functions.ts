@@ -1,16 +1,20 @@
 import libnpmorg from 'libnpmorg';
 import { Octokit } from '@octokit/rest';
 
-export async function githubListUsers() {
+export async function githubListUsers(org: string = 'mui') {
   if (!process.env.GITHUB_TOKEN) {
     throw new Error(`Env variable GITHUB_TOKEN not configured`);
+  }
+
+  if (!['mui', 'mui-org'].includes(org)) {
+    throw new Error(`Org name ${org} not allowed`);
   }
 
   const octokit = new Octokit({
     auth: process.env.GITHUB_TOKEN,
   })
 
-  const response = await octokit.request('GET /orgs/mui/members', {
+  const response = await octokit.request(`GET /orgs/${org}/members`, {
     per_page: 100,
     role: 'all',
     headers: {
@@ -25,9 +29,13 @@ export async function githubListUsers() {
   }));
 }
 
-export async function githubInviteUser(username: string) {
+export async function githubInviteUser(username: string, org: string = 'mui') {
   if (!process.env.GITHUB_TOKEN) {
     throw new Error(`Env variable GITHUB_TOKEN not configured`);
+  }
+
+  if (!['mui', 'mui-org'].includes(org)) {
+    throw new Error(`Org name ${org} not allowed`);
   }
 
   const octokit = new Octokit({
@@ -42,7 +50,7 @@ export async function githubInviteUser(username: string) {
       }
     });
 
-    const invitation = await octokit.request('POST /orgs/mui/invitations', {
+    const invitation = await octokit.request(`POST /orgs/${org}/invitations`, {
       invitee_id: user.data.id,
       role: 'direct_member',
       team_ids: [],

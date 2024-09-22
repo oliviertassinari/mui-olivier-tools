@@ -9,9 +9,9 @@
     "start": "toolpad start"
   },
   "dependencies": {
-    "@mui/toolpad": "^0.1.48",
-    "@octokit/rest": "^20.0.2",
-    "libnpmorg": "^5.0.4"
+    "@mui/toolpad": "^0.1.51",
+    "@octokit/rest": "^21.0.2",
+    "libnpmorg": "^6.0.6"
   },
-  "packageManager": "pnpm@8.15.8+sha256.691fe176eea9a8a80df20e4976f3dfb44a04841ceb885638fe2a26174f81e65e"
+  "packageManager": "pnpm@9.11.0+sha512.0a203ffaed5a3f63242cd064c8fb5892366c103e328079318f78062f24ea8c9d50bc6a47aa3567cabefd824d170e78fa2745ed1f16b132e16436146b7688f19b"
 }

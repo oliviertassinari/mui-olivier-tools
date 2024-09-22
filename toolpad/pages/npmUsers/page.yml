@@ -1,4 +1,4 @@
-# yaml-language-server: $schema=https://raw.githubusercontent.com/mui/mui-toolpad/v0.1.48/docs/schemas/v1/definitions.json#properties/Page
+# yaml-language-server: $schema=https://raw.githubusercontent.com/mui/mui-toolpad/v0.1.51/docs/schemas/v1/definitions.json#properties/Page
 
 apiVersion: v1
 kind: page
@@ -38,6 +38,12 @@ spec:
                 label: "@toolpad"
               - value: pigment-css
                 label: "@pigment-css"
+              - value: base-ui
+                label: "@base-ui"
+              - value: base_ui
+                label: "@base_ui"
+              - value: base-ui-components
+                label: "@base-ui-components"
             defaultValue: mui
             name: ""
     - component: DataGrid

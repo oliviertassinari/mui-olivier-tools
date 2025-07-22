@@ -40,8 +40,6 @@ spec:
                 label: "@pigment-css"
               - value: base-ui
                 label: "@base-ui"
-              - value: base_ui
-                label: "@base_ui"
               - value: base-ui-components
                 label: "@base-ui-components"
             defaultValue: mui

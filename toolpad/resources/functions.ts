@@ -86,7 +86,7 @@ export async function npmInviteUser(org: string, slug: string) {
   }
 
   try {
-    const membershipDetail = await libnpmorg.set(org, slug, 'developer', {
+    const membershipDetail = await libnpmorg.set(org, slug, null, {
       '//registry.npmjs.org/:_authToken': process.env.NPM_TOKEN,
     })
 

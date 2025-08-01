@@ -122,14 +122,10 @@ spec:
           Token to renew in
           https://www.npmjs.com/settings/oliviertassinari/tokens/granular-access-tokens/new.
 
-
           You need to set:
 
-
           - Packages and scopes: no permissions
-
-          - Organizations: read and right to @mui, @toolpad, @pigment-css
-
+          - Organizations: read and right to the relevant organizations
 
           Set the expiration date to be 4 years.
   queries:

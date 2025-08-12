@@ -6,7 +6,7 @@ services:
     env: node
     rootDir: ./
     buildCommand: pnpm install && pnpm build
-    startCommand: node_modules/.bin/toolpad start
+    startCommand: pnpm start
     pullRequestPreviewsEnabled: true
     plan: free
     envVars:

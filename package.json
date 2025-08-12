@@ -4,14 +4,28 @@
   "private": true,
   "scripts": {
     "preinstall": "npx only-allow pnpm",
-    "dev": "toolpad dev",
-    "build": "toolpad build",
-    "start": "toolpad start"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
   },
   "dependencies": {
-    "@mui/toolpad": "^0.1.51",
+    "@emotion/react": "^11.13.3",
+    "@emotion/styled": "^11.13.0",
+    "@mui/material": "^6.1.9",
+    "@mui/material-nextjs": "^7.3.0",
+    "@mui/x-data-grid": "^7.22.2",
     "@octokit/rest": "^21.0.2",
-    "libnpmorg": "^6.0.6"
+    "libnpmorg": "^6.0.6",
+    "next": "15.4.6",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-markdown": "^10.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "typescript": "^5"
   },
   "packageManager": "pnpm@9.11.0+sha512.0a203ffaed5a3f63242cd064c8fb5892366c103e328079318f78062f24ea8c9d50bc6a47aa3567cabefd824d170e78fa2745ed1f16b132e16436146b7688f19b"
 }

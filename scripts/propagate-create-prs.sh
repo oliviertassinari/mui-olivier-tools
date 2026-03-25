@@ -73,20 +73,27 @@ WORKSPACE_DIR=$(dirname "$WORKSPACE_FILE")
 # Fetch PR metadata from the sample PR
 echo "Fetching PR metadata from GitHub..."
 PR_JSON=$(gh pr view "$PR_NUMBER" --repo "$GITHUB_ORG/$GITHUB_REPO" \
-  --json title,body,isDraft,headRefName)
+  --json title,body,isDraft,headRefName,labels)
 
 PR_TITLE=$(echo "$PR_JSON" | jq -r '.title')
 PR_BODY=$(echo "$PR_JSON" | jq -r '.body // ""')
 PR_IS_DRAFT=$(echo "$PR_JSON" | jq -r '.isDraft')
 PR_HEAD_BRANCH=$(echo "$PR_JSON" | jq -r '.headRefName')
+# Build --label flags from the sample PR's labels (may be empty)
+LABEL_FLAGS=()
+while IFS= read -r label; do
+  [[ -n "$label" ]] && LABEL_FLAGS+=(--label "$label")
+done < <(echo "$PR_JSON" | jq -r '.labels[].name')
 
 # Append attribution to body
 ATTRIBUTION="Same as $PR_INPUT"
-if [[ -n "$PR_BODY" ]]; then
-  NEW_BODY="${PR_BODY}"$'\n\n'"${ATTRIBUTION}"
-else
-  NEW_BODY="$ATTRIBUTION"
-fi
+# if [[ -n "$PR_BODY" ]]; then
+#   NEW_BODY="${PR_BODY}"$'\n\n'"${ATTRIBUTION}"
+# else
+#   NEW_BODY="$ATTRIBUTION"
+# fi
+
+NEW_BODY="$ATTRIBUTION"
 
 DRAFT_FLAG=""
 [[ "$PR_IS_DRAFT" == "true" ]] && DRAFT_FLAG="--draft"
@@ -95,6 +102,7 @@ echo "Sample PR:  $PR_INPUT"
 echo "Title:      $PR_TITLE"
 echo "Branch:     $PR_HEAD_BRANCH"
 echo "Draft:      $PR_IS_DRAFT"
+echo "Labels:     $(echo "$PR_JSON" | jq -r '[.labels[].name] | join(", ")')"
 [[ "$DRY_RUN" == "true" ]] && echo "(dry run — no changes will be made)"
 echo ""
 
@@ -190,18 +198,28 @@ for TARGET in "${TARGETS[@]}"; do
     fi
   fi
 
-  git -C "$TARGET" push origin "$PUSH_BRANCH" --force-with-lease --quiet
+  ORIGIN_URL=$(git -C "$TARGET" remote get-url origin 2>/dev/null || true)
+  UPSTREAM_URL=$(git -C "$TARGET" remote get-url upstream)
+  UPSTREAM_REPO=$(echo "$UPSTREAM_URL" | sed 's|.*github\.com[:/]\([^/]*/[^/]*\)|\1|' | sed 's|\.git$||')
 
-  TARGET_REPO=$(gh -C "$TARGET" repo view --json nameWithOwner -q .nameWithOwner 2>/dev/null \
-    || git -C "$TARGET" remote get-url origin)
+  if [[ -n "$ORIGIN_URL" ]]; then
+    PUSH_REMOTE="origin"
+    FORK_OWNER=$(echo "$ORIGIN_URL" | sed 's|.*github\.com[:/]\([^/]*\)/.*|\1|')
+  else
+    PUSH_REMOTE="upstream"
+    FORK_OWNER=$(echo "$UPSTREAM_URL" | sed 's|.*github\.com[:/]\([^/]*\)/.*|\1|')
+  fi
+
+  git -C "$TARGET" push "$PUSH_REMOTE" "$PUSH_BRANCH" --force-with-lease --quiet
 
   PR_URL=$(gh pr create \
-    --repo "$TARGET_REPO" \
+    --repo "$UPSTREAM_REPO" \
     $DRAFT_FLAG \
     --title "$PR_TITLE" \
     --body "$NEW_BODY" \
-    --head "$PUSH_BRANCH" \
+    --head "$FORK_OWNER:$PUSH_BRANCH" \
     --base "$DEFAULT_BRANCH" \
+    "${LABEL_FLAGS[@]}" \
     2>&1 || true)
 
   echo "  PR: $PR_URL"

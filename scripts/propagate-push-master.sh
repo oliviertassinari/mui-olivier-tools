@@ -2,7 +2,7 @@
 # Review unpushed commits across MUI repos and optionally push them.
 #
 # Usage:
-#   ./scripts/push-repos.sh [--all] [--dry-run] [--diff]
+#   ./scripts/propagate-push-master.sh [--all] [--dry-run] [--diff]
 #
 # Options:
 #   --all       Push all repos with unpushed commits without interactive selection
@@ -12,10 +12,10 @@
 # Loads repos from ~/mui.code-workspace (requires fzf for interactive mode).
 #
 # Examples:
-#   ./scripts/push-repos.sh
-#   ./scripts/push-repos.sh --all
-#   ./scripts/push-repos.sh --dry-run
-#   ./scripts/push-repos.sh --dry-run --diff
+#   ./scripts/propagate-push-master.sh
+#   ./scripts/propagate-push-master.sh --all
+#   ./scripts/propagate-push-master.sh --dry-run
+#   ./scripts/propagate-push-master.sh --dry-run --diff
 
 set -euo pipefail
 

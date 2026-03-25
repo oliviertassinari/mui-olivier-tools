@@ -2,7 +2,7 @@
 # Propagate a commit from one MUI repo to one or more target repositories.
 #
 # Usage:
-#   ./scripts/propagate-commit.sh <github-commit-url> [<target-repo-path> ...]
+#   ./scripts/propagate-apply-commit.sh <github-commit-url> [<target-repo-path> ...]
 #
 # Options:
 #   --pr        Open a draft PR in each target repo after applying the commit (requires gh CLI)
@@ -12,9 +12,9 @@
 # ~/mui.code-workspace (requires fzf).
 #
 # Examples:
-#   ./scripts/propagate-commit.sh https://github.com/mui/material-ui/commit/f9413d1
-#   ./scripts/propagate-commit.sh https://github.com/mui/material-ui/commit/f9413d1 --pr
-#   ./scripts/propagate-commit.sh https://github.com/mui/material-ui/commit/f9413d1 --dry-run
+#   ./scripts/propagate-apply-commit.sh https://github.com/mui/material-ui/commit/f9413d1
+#   ./scripts/propagate-apply-commit.sh https://github.com/mui/material-ui/commit/f9413d1 --pr
+#   ./scripts/propagate-apply-commit.sh https://github.com/mui/material-ui/commit/f9413d1 --dry-run
 
 set -euo pipefail
 

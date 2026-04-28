@@ -142,7 +142,19 @@ for TARGET in "${TARGETS[@]}"; do
   [[ "$HAS_STAGED" == "yes" || "$HAS_UNSTAGED" == "yes" || -n "$HAS_UNTRACKED" ]] && HAS_CHANGES="yes"
 
   if [[ "$HAS_CHANGES" == "no" ]]; then
-    echo "  SKIP: no uncommitted changes"
+    if [[ "$DRY_RUN" == "true" ]]; then
+      echo "  Would pull from remote (no local changes)"
+      continue
+    fi
+    if PULL_OUTPUT=$(git -C "$TARGET" pull --ff-only 2>&1); then
+      if echo "$PULL_OUTPUT" | grep -q "Already up to date"; then
+        echo "  SKIP: already up to date"
+      else
+        echo "  Pulled"
+      fi
+    else
+      echo "  WARNING: could not sync with remote — $PULL_OUTPUT"
+    fi
     continue
   fi
 

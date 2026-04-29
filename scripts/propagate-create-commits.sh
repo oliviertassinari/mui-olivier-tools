@@ -76,6 +76,9 @@ if [[ -z "$SOURCE_REL" ]]; then
 fi
 
 SOURCE_REPO="$WORKSPACE_DIR/$SOURCE_REL"
+
+git -C "$SOURCE_REPO" fetch --all --quiet
+
 COMMIT_FULL=$(git -C "$SOURCE_REPO" rev-parse "$COMMIT")
 COMMIT_MSG=$(git -C "$SOURCE_REPO" log -1 --format="%s" "$COMMIT_FULL")
 

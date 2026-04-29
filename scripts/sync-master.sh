@@ -7,7 +7,7 @@
 # If no repos are specified, an interactive selector loads repos from
 # ~/mui.code-workspace (requires fzf).
 #
-# Repos with unstaged or staged changes are warned and skipped.
+# Repos with unstaged or staged changes are stashed, synced, then restored.
 
 set -euo pipefail
 
@@ -69,10 +69,11 @@ for TARGET in "${TARGETS[@]}"; do
     continue
   fi
 
-  # Warn and skip if working tree is dirty
+  DIRTY=false
   if ! git -C "$TARGET" diff --quiet || ! git -C "$TARGET" diff --cached --quiet; then
-    echo "  WARN: working tree has uncommitted changes — skipping"
-    continue
+    DIRTY=true
+    echo "  NOTE: working tree has uncommitted changes — stashing"
+    git -C "$TARGET" stash push --quiet --include-untracked -m "sync-master auto-stash"
   fi
 
   DEFAULT_BRANCH=$(git -C "$TARGET" symbolic-ref refs/remotes/upstream/HEAD 2>/dev/null | sed 's|refs/remotes/upstream/||' || echo "master")
@@ -92,6 +93,16 @@ for TARGET in "${TARGETS[@]}"; do
   else
     git -C "$TARGET" pull --ff-only --quiet
     echo "  Synced from origin/$DEFAULT_BRANCH"
+  fi
+
+  if [[ "$DIRTY" == true ]]; then
+    if ! git -C "$TARGET" stash pop 2>&1; then
+      echo ""
+      echo "  ERROR: 'git stash pop' failed for $TARGET_NAME — resolve conflicts manually, then run:"
+      echo "    git -C \"$TARGET\" stash drop"
+      exit 1
+    fi
+    echo "  Restored stashed changes"
   fi
 done
 

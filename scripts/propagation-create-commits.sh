@@ -3,7 +3,7 @@
 # using a source commit as a metadata template (title + attribution body).
 #
 # Usage:
-#   ./scripts/propagate-create-commits.sh <github-commit-url> [<target-repo-path> ...]
+#   ./scripts/propagation-create-commits.sh <github-commit-url> [<target-repo-path> ...]
 #
 # Options:
 #   --dry-run   Show what would be done without making any changes
@@ -16,9 +16,9 @@
 #   - Otherwise → skip (nothing to commit)
 #
 # Examples:
-#   ./scripts/propagate-create-commits.sh https://github.com/mui/material-ui/commit/f9413d1
-#   ./scripts/propagate-create-commits.sh https://github.com/mui/material-ui/commit/f9413d1 --dry-run
-#   ./scripts/propagate-create-commits.sh https://github.com/mui/material-ui/commit/f9413d1 ~/repos/mui-x
+#   ./scripts/propagation-create-commits.sh https://github.com/mui/material-ui/commit/f9413d1
+#   ./scripts/propagation-create-commits.sh https://github.com/mui/material-ui/commit/f9413d1 --dry-run
+#   ./scripts/propagation-create-commits.sh https://github.com/mui/material-ui/commit/f9413d1 ~/repos/mui-x
 
 set -euo pipefail
 

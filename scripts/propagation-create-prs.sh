@@ -4,7 +4,7 @@
 # sample PR's diff.
 #
 # Usage:
-#   ./scripts/propagate-create-prs.sh <sample-pr-url> [<target-repo-path> ...]
+#   ./scripts/propagation-create-prs.sh <sample-pr-url> [<target-repo-path> ...]
 #
 # Options:
 #   --dry-run   Show what would be done without making any changes
@@ -18,9 +18,9 @@
 #   - Otherwise → skip (nothing to open a PR for)
 #
 # Examples:
-#   ./scripts/propagate-create-prs.sh https://github.com/mui/material-ui/pull/12345
-#   ./scripts/propagate-create-prs.sh https://github.com/mui/material-ui/pull/12345 --dry-run
-#   ./scripts/propagate-create-prs.sh https://github.com/mui/material-ui/pull/12345 ~/repos/mui-x
+#   ./scripts/propagation-create-prs.sh https://github.com/mui/material-ui/pull/12345
+#   ./scripts/propagation-create-prs.sh https://github.com/mui/material-ui/pull/12345 --dry-run
+#   ./scripts/propagation-create-prs.sh https://github.com/mui/material-ui/pull/12345 ~/repos/mui-x
 
 set -euo pipefail
 

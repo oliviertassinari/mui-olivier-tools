@@ -1,0 +1,5 @@
+packages:
+  - 'github-audit'
+  - 'github-audit/web'
+allowBuilds:
+  '@mui/x-telemetry': false

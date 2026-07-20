@@ -1,0 +1,23 @@
+{
+  "name": "audit-activity-github",
+  "version": "1.0.0",
+  "private": true,
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "web": "pnpm --filter web dev",
+    "web:build": "pnpm --filter web build"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "@octokit/plugin-retry": "^8.1.0",
+    "@octokit/plugin-throttling": "^11.0.3",
+    "@octokit/rest": "^22.0.1",
+    "express": "^5.2.1",
+    "p-limit": "^7.3.0"
+  }
+}

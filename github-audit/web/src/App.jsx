@@ -15,11 +15,11 @@ import { BarChart } from '@mui/x-charts/BarChart';
 import { DataGridPremium, GridToolbar } from '@mui/x-data-grid-premium';
 
 const CATEGORIES = [
-  { key: 'issueComments', label: 'Issue comments', color: '#3c4fb8' },
-  { key: 'prComments', label: 'PR comments', color: '#1a7f4e' },
-  { key: 'prReviews', label: 'PR reviews', color: '#9a6300' },
-  { key: 'prCommits', label: 'PR commits', color: '#8a2be2' },
-  { key: 'prMerged', label: 'PRs merged', color: '#c0392b' },
+  { key: 'issueComments', label: 'Issue comments', color: '#51528d' },
+  { key: 'prComments', label: 'PR comments', color: '#689636' },
+  { key: 'prReviews', label: 'PR reviews', color: '#ed8535' },
+  { key: 'prCommits', label: 'PR commits', color: '#8a5eb0' },
+  { key: 'prMerged', label: 'PRs merged', color: '#e75454' },
 ];
 
 function monthKey(dateStr) {
